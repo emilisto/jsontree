@@ -1,99 +1,126 @@
 var assert = require('chai').assert
   , _ = require('underscore')
-  ,  astdiff = require('./index')
+  ,  jsontree = require('./index')
   , fs = require('fs')
-  , esprima = require('esprima')
   , prettyjson = require('prettyjson')
   , assert = require('assert')
   , util = require('util')
 ;
 
 
-var readAST = function(path) {
-  var code = fs.readFileSync(path);
-  return esprima.parse(code);
-};
-
-{
-  "name": "...",
-  "value": "...",
-  "children": [
-
-  ]
-}
-
 module.exports = {
-  'Transformations between AST and OLT': {
-    'fromObject, simple object': function() {
+  'primitives': function() {
+    assert.deepEqual(jsontree.toTree({}), {
+      "type": "Object",
+      "children": []
+    })
 
+    assert.deepEqual(jsontree.toTree([]), {
+      "type": "List",
+      "children": []
+    })
 
-      _.each({
+    assert.deepEqual(jsontree.toTree("value"), {
+      "type": "Value",
+      "value": "value",
+    })
 
-        "simple value": {
-          "object": {
-            "key": "value"
-          },
-          "olt": {
-            "name": "key",
-            "value": "value"
-          }
+  },
+
+  'simple object': function() {
+    assert.deepEqual(jsontree.toTree({
+      "key": "value"
+    }), {
+      "type": "Object",
+      "children": [
+        {
+          "type": "Value",
+          "name": "key",
+          "value": "value"
         }
+      ]
+    });
+  },
 
-        "empty-array": {
-          "object": {
-            "key": []
-          },
-          "olt": {
-            "name": "key",
-            "children": []
-          }
-        }
+  'populated list': function() {
 
-        "empty-object": {
-          "object": {
-            "key": {}
-          },
-          "olt": {
-            "name": "key",
-            "children": []
-          }
-        }
-
-        "filled-array": {
-          "object": {
-            "key": [
-              "value"
-            ]
-          },
-          "olt": {
-
-          }
-        }
-
-        "filled-object": {
-          "object": {
-            "first": {
-              "second": "value"
+    assert.deepEqual(jsontree.toTree([
+     "value1",
+     {
+        "key": "value"
+     },
+     "value3"
+    ]), {
+      "type": "List",
+      "children": [
+        {
+          "type": "Value",
+          "value": "value1"
+        },
+        {
+          "type": "Object",
+          "children": [
+            {
+              "type": "Value",
+              "name": "key",
+              "value": "value"
             }
-          }
-          "olt": {
-
-          }
+          ]
+        },
+        {
+          "type": "Value",
+          "value": "value3"
         }
+      ]
+    });
 
-      }, function(obj, name) {
-        var olt = astdiff.fromObject(obj);
-        console.log(JSON.stringify(olt, null, 2));
+  },
 
+  'populated object': function() {
 
-        //var _obj = astdiff.toObject(olt);
-        //assert.deepEqual(obj, _obj, util.format('\n\n%s should be equal to\n\n%s\n\nbut is \n\n %sname\n\n',
-          //name, JSON.stringify(obj, null, 2), JSON.stringify(_obj, null, 2)
-        //));
-
-      });
-
-    }
-
+    assert.deepEqual(jsontree.toTree({
+     "key": "value",
+     "list": [
+       "one",
+       "two"
+     ],
+     "object": {
+       "woho": "works"
+     }
+    }), {
+      "type": "Object",
+      "children": [
+        {
+          "type": "Value",
+          "name": "key",
+          "value": "value"
+        },
+        {
+          "type": "List",
+          "name": "list",
+          "children": [
+            {
+              "type": "Value",
+              "value": "one"
+            },
+            {
+              "type": "Value",
+              "value": "two"
+            }
+          ]
+        },
+        {
+          "type": "Object",
+          "name": "object",
+          "children": [
+            {
+              "type": "Value",
+              "name": "woho",
+              "value": "works"
+            }
+          ]
+        }
+      ]
+    });
   }
 };
