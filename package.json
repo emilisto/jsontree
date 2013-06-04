@@ -1,0 +1,17 @@
+{
+  "name": "jsontree",
+  "version": "0.0.0",
+  "description": "Provides a 1-1 mapping between JSON and an Ordered Labeled Tree (OLT) data structure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "chai": "~1.6.0",
+    "underscore": "~1.4.4",
+    "mocha": "~1.10.0"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD"
+}
