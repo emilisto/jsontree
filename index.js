@@ -1,10 +1,8 @@
-var _ = require('underscore');
+var _ = require('underscore'),
+    allong = require('allong.es').es
+;
 
-var unary = function(fn) {
-  return function(arg) {
-    return fn(arg);
-  };
-};
+var sorter = allong.getWith('name');
 
 // Takes a Javascript object and returns it as an OLT
 var toTree = function(obj, name) {
@@ -15,12 +13,12 @@ var toTree = function(obj, name) {
   if(_.isArray(obj)) {
     _.extend(ret, {
       "type": "List",
-      "children": _.map(obj, unary(toTree))
+      "children": _.map(obj, allong.unary(toTree))
     });
   } else if(_.isObject(obj)) {
     _.extend(ret, {
       "type": "Object",
-      "children": _.map(obj, toTree)
+      "children": _.map(obj, toTree).sort(sorter)
     });
   } else {
     _.extend(ret, {

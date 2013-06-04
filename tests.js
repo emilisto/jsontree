@@ -1,8 +1,4 @@
-var assert = require('chai').assert
-  , _ = require('underscore')
-  ,  jsontree = require('./index')
-  , fs = require('fs')
-  , prettyjson = require('prettyjson')
+var jsontree = require('./index')
   , assert = require('assert')
   , util = require('util')
 ;

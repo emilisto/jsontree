@@ -1,7 +1,7 @@
 {
   "name": "jsontree",
-  "version": "0.1.1",
-  "description": "Provides a 1-1 mapping between JSON and an Ordered Labeled Tree (OLT) data structure",
+  "version": "0.1.2",
+  "description": "Converts a JSON object into an Ordered Labeled Tree (OLT)",
   "main": "index.js",
   "scripts": {
     "test": "mocha --ui exports --reporter spec tests.js"
@@ -9,7 +9,8 @@
   "devDependencies": {
     "chai": "~1.6.0",
     "underscore": "~1.4.4",
-    "mocha": "~1.10.0"
+    "mocha": "~1.10.0",
+    "allong.es": "~0.14.0"
   },
   "repository": "https://github.com/emilisto/jsontree",
   "author": "Emil Stenqvist <emsten@gmail.com>",
