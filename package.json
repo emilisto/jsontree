@@ -1,6 +1,6 @@
 {
   "name": "jsontree",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Provides a 1-1 mapping between JSON and an Ordered Labeled Tree (OLT) data structure",
   "main": "index.js",
   "scripts": {
