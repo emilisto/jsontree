@@ -7,27 +7,24 @@ var sorter = allong.getWith('name');
 // Takes a Javascript object and returns it as an OLT
 var toTree = function(obj, name) {
 
-  var ret = {};
-  if(name) ret.name = name;
+  var node = {
+    label: {}
+  };
+
+  if(name) node.label.name = name;
 
   if(_.isArray(obj)) {
-    _.extend(ret, {
-      "type": "List",
-      "children": _.map(obj, allong.unary(toTree))
-    });
+    node.label.type = "List";
+    node.children =_.map(obj, allong.unary(toTree)); 
   } else if(_.isObject(obj)) {
-    _.extend(ret, {
-      "type": "Object",
-      "children": _.map(obj, toTree).sort(sorter)
-    });
+    node.label.type = "Object";
+    node.children =_.map(obj, toTree).sort(sorter); 
   } else {
-    _.extend(ret, {
-      "type": "Value",
-      "value": obj
-    });
+    node.label.type = "Value";
+    node.label.value = obj;
   }
 
-  return ret;
+  return node;
 };
 
 var toObject = function(tree) {

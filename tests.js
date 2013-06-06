@@ -7,18 +7,24 @@ var jsontree = require('./index')
 module.exports = {
   'primitives': function() {
     assert.deepEqual(jsontree.toTree({}), {
-      "type": "Object",
+      "label": {
+        "type": "Object",
+      },
       "children": []
     })
 
     assert.deepEqual(jsontree.toTree([]), {
-      "type": "List",
+      "label": {
+        "type": "List",
+      },
       "children": []
     })
 
     assert.deepEqual(jsontree.toTree("value"), {
-      "type": "Value",
-      "value": "value",
+      "label": {
+        "type": "Value",
+        "value": "value",
+      }
     })
 
   },
@@ -27,12 +33,16 @@ module.exports = {
     assert.deepEqual(jsontree.toTree({
       "key": "value"
     }), {
-      "type": "Object",
+      "label": {
+        "type": "Object",
+      },
       "children": [
         {
-          "type": "Value",
-          "name": "key",
-          "value": "value"
+          "label": {
+            "type": "Value",
+            "name": "key",
+            "value": "value"
+          }
         }
       ]
     });
@@ -47,25 +57,36 @@ module.exports = {
      },
      "value3"
     ]), {
-      "type": "List",
+      "label": {
+        "type": "List",
+      },
       "children": [
         {
-          "type": "Value",
-          "value": "value1"
+          "label": {
+            "type": "Value",
+            "value": "value1"
+          }
         },
         {
-          "type": "Object",
+          "label": {
+            "type": "Object",
+          },
           "children": [
             {
-              "type": "Value",
-              "name": "key",
-              "value": "value"
+              "label": {
+                "type": "Value",
+                "name": "key",
+                "value": "value"
+              }
             }
           ]
         },
         {
-          "type": "Value",
-          "value": "value3"
+
+          "label": {
+            "type": "Value",
+            "value": "value3"
+          }
         }
       ]
     });
@@ -84,35 +105,49 @@ module.exports = {
        "woho": "works"
      }
     }), {
-      "type": "Object",
+      "label": {
+        "type": "Object",
+      },
       "children": [
         {
-          "type": "Value",
-          "name": "key",
-          "value": "value"
+          "label": {
+            "type": "Value",
+            "name": "key",
+            "value": "value"
+          }
         },
         {
-          "type": "List",
-          "name": "list",
+          "label": {
+            "type": "List",
+            "name": "list",
+          },
           "children": [
             {
-              "type": "Value",
-              "value": "one"
+              "label": {
+                "type": "Value",
+                "value": "one"
+              }
             },
             {
-              "type": "Value",
-              "value": "two"
+              "label": {
+                "type": "Value",
+                "value": "two"
+              }
             }
           ]
         },
         {
-          "type": "Object",
-          "name": "object",
+          "label": {
+            "type": "Object",
+            "name": "object",
+          },
           "children": [
             {
-              "type": "Value",
-              "name": "woho",
-              "value": "works"
+              "label": {
+                "type": "Value",
+                "name": "woho",
+                "value": "works"
+              }
             }
           ]
         }
